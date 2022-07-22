@@ -20,7 +20,7 @@ steps:
     command: 'publish'
     publishWebProjects: false
     projects: '**/*.csproj'
-    arguments: '--output $(Build.BinariesDirectory)/publish_output/App_Data/jobs/continuous/GraphExcelEmailerWebJob'
+    arguments: '--output $(Build.BinariesDirectory)/publish_output/App_Data/jobs/triggered/GraphExcelEmailerWebJob'
     zipAfterPublish: false
     modifyOutputPath: false
 - task: ArchiveFiles@2
