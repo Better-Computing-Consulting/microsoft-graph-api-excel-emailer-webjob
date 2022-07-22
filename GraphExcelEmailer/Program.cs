@@ -2,7 +2,6 @@
 using System.Text;
 
 var settings = Settings.LoadSettings();
-
 GraphHelper.EnsureGraphForAppOnlyAuth(settings);
 
 List<string> doNotSendEmails; 
