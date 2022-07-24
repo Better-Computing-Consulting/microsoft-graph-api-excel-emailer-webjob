@@ -44,7 +44,7 @@ stages:
         azureSubscription: 'AzureServiceConnection'
         appType: 'webApp'
         WebAppName: 'bccWebJobsSDKSample01'
-        packageForLinux: '$(Build.ArtifactStagingDirectory)/**/*.zip'
+        packageForLinux: '$(Build.ArtifactStagingDirectory)/*.zip'
         enableCustomDeployment: true
         DeploymentType: 'zipDeploy'
         TakeAppOfflineFlag: false
