@@ -36,6 +36,17 @@ stages:
     - task: PublishBuildArtifacts@1
 - stage: Deploy
   jobs:
-  - job: Deploy
+  - job: DeployJob
     steps:
-    - script: echo Deploying the code!
+    - task: AzureRmWebAppDeployment@4
+      inputs:
+        ConnectionType: 'AzureRM'
+        azureSubscription: 'AzureServiceConnection'
+        appType: 'webApp'
+        WebAppName: 'bccWebJobsSDKSample01'
+        packageForLinux: '$(System.DefaultWorkingDirectory)/**/*.zip'
+        enableCustomDeployment: true
+        DeploymentType: 'zipDeploy'
+        TakeAppOfflineFlag: false
+    
+    
