@@ -47,12 +47,7 @@ stages:
         buildType: 'current'
         downloadType: 'specific'
         downloadPath: '$(System.ArtifactsDirectory)'
-    - script: |
-        echo "ArtifactsDir:"
-        ls '$(System.ArtifactsDirectory)'
-        echo "DefaultWorkingDir:"
-        ls '$(System.DefaultWorkingDirectory)'
-      
+
     - task: AzureRmWebAppDeployment@4
       inputs:
         ConnectionType: 'AzureRM'
@@ -63,5 +58,4 @@ stages:
         enableCustomDeployment: true
         DeploymentType: 'zipDeploy'
         TakeAppOfflineFlag: false
-    
     
