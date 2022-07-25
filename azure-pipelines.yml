@@ -48,7 +48,9 @@ stages:
         downloadType: 'specific'
         downloadPath: '$(System.ArtifactsDirectory)'
     - script: |
+        echo "ArtifactsDir:"
         ls '$(System.ArtifactsDirectory)'
+        echo "DefaultWorkingDir:"
         ls '$(System.DefaultWorkingDirectory)'
       
     - task: AzureRmWebAppDeployment@4
@@ -57,7 +59,7 @@ stages:
         azureSubscription: 'AzureServiceConnection'
         appType: 'webApp'
         WebAppName: 'bccWebJobsSDKSample01'
-        packageForLinux: '$(System.DefaultWorkingDirectory)/**/*.zip'
+        packageForLinux: '$(System.DefaultWorkingDirectory)/drop/*.zip'
         enableCustomDeployment: true
         DeploymentType: 'zipDeploy'
         TakeAppOfflineFlag: false
