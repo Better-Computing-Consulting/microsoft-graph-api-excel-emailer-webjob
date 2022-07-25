@@ -53,7 +53,7 @@ stages:
         ConnectionType: 'AzureRM'
         azureSubscription: 'AzureServiceConnection'
         appType: 'webApp'
-        WebAppName: 'bccWebJobsSDKSample01'
+        WebAppName: '$(WebAppName)'
         packageForLinux: '$(System.ArtifactsDirectory)/drop/*.zip'
         enableCustomDeployment: true
         DeploymentType: 'zipDeploy'
