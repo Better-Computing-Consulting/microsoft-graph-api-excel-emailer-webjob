@@ -20,5 +20,4 @@ steps:
     azureSubscription: 'AzureServiceConnection'
     scriptType: 'bash'
     scriptLocation: 'inlineScript'
-    inlineScript: 'az webapp webjob triggered run --name $(WebAppName) --resource-group $(ResGrpName) --webjob-name GraphExcelEmailerWebJob'
-
+    inlineScript: 'az webapp webjob triggered run --name $(WebAppName) --resource-group $(ResGrpName) --webjob-name GraphExcelEmailerWebJob -o yamlc'
