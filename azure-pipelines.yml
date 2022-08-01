@@ -12,6 +12,7 @@ trigger:
      - '*'
    exclude:
      - '**/*.yml'
+     - '/*.yml'
      - README.md
 
 stages:
