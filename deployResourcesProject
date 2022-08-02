@@ -103,7 +103,7 @@ az devops project create --name $projectId --output none
 echo "Create AzureRM service endpoint"
 azRMSvcId=$(az devops service-endpoint azurerm create --azure-rm-service-principal-id $spClientId \
 	--azure-rm-subscription-id $subsId --azure-rm-subscription-name "$subsName" --azure-rm-tenant-id $tenantId \
-	--name AzureServiceConnection --project $projectId --query  id)
+	--name AzureServiceConnection --project $projectId --query id)
 
 echo "Enable AzureRM service endpoint for all pipelines"
 az devops service-endpoint update --id $azRMSvcId --enable-for-all true --project $projectId --output none
