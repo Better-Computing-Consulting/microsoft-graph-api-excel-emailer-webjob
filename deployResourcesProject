@@ -28,10 +28,10 @@ webAppPubIPs=$(az webapp show -n $webAppName --query possibleOutboundIpAddresses
 keyVaultName=$projectId-KV
 
 echo "Deploy KeyVault with network rule to allow access from WebApp public IP and default action Deny"
-az keyvault create -n "$keyVaultName" --network-acls-ips ${webAppPubIPs//,/ } --default-action Deny --query provisioningState --output none
+az keyvault create -n "$keyVaultName" --network-acls-ips ${webAppPubIPs//,/ } --default-action Deny --output none
 
 echo "Adding KeyVault policy to allow access from WebApp Managed Identity"
-az keyvault set-policy --name $keyVaultName --object-id $webAppManagedId --secret-permissions get list --query provisioningState --output none
+az keyvault set-policy --name $keyVaultName --object-id $webAppManagedId --secret-permissions get list --output none
 
 echo "Add KeyVault name as an environment variable to the WebApp"
 az webapp config appsettings set -n $webAppName --settings KEY_VAULT_NAME=$keyVaultName --output none
