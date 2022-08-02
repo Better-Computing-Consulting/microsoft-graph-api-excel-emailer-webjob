@@ -51,6 +51,8 @@ stages:
 - stage: Deploy
   jobs:
   - job: DeployJob
+    pool:
+      vmImage: ubuntu-latest
     steps:
     - task: DownloadBuildArtifacts@1
       inputs:
