@@ -13,7 +13,8 @@ schedules:
   branches:
     include:
       - master
-
+pool:
+  vmImage: ubuntu-latest
 steps:
 - task: AzureCLI@2
   inputs:
