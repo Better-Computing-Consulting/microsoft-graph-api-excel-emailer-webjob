@@ -28,10 +28,10 @@ webAppPubIPs=$(az webapp show -n $webAppName --query possibleOutboundIpAddresses
 keyVaultName=$projectId-KV
 
 echo "Deploy KeyVault with network rule to allow access from WebApp public IP and default action Deny"
-az keyvault create -n "$keyVaultName" --network-acls-ips ${webAppPubIPs//,/ } --default-action Deny --query provisioningState --output none
+az keyvault create -n "$keyVaultName" --network-acls-ips ${webAppPubIPs//,/ } --default-action Deny --output none
 
 echo "Adding KeyVault policy to allow access from WebApp Managed Identity"
-az keyvault set-policy --name $keyVaultName --object-id $webAppManagedId --secret-permissions get list --query provisioningState --output none
+az keyvault set-policy --name $keyVaultName --object-id $webAppManagedId --secret-permissions get list --output none
 
 echo "Add KeyVault name as an environment variable to the WebApp"
 az webapp config appsettings set -n $webAppName --settings KEY_VAULT_NAME=$keyVaultName --output none
@@ -103,7 +103,7 @@ az devops project create --name $projectId --output none
 echo "Create AzureRM service endpoint"
 azRMSvcId=$(az devops service-endpoint azurerm create --azure-rm-service-principal-id $spClientId \
 	--azure-rm-subscription-id $subsId --azure-rm-subscription-name "$subsName" --azure-rm-tenant-id $tenantId \
-	--name AzureServiceConnection --project $projectId --query  id)
+	--name AzureServiceConnection --project $projectId --query id)
 
 echo "Enable AzureRM service endpoint for all pipelines"
 az devops service-endpoint update --id $azRMSvcId --enable-for-all true --project $projectId --output none

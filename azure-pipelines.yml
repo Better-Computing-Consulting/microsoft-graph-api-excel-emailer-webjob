@@ -13,7 +13,8 @@ trigger:
    exclude:
      - '**/*.yml'
      - '/*.yml'
-     - README.md
+     - '/README.md'
+     - '/deployResourcesProject'
 
 stages:
 - stage: Build
