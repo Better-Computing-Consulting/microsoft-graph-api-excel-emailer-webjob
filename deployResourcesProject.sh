@@ -1,7 +1,6 @@
 #!/bin/bash
 projectId=bccGraphWebjob-$RANDOM
 echo $projectId
-
 location="westus"
 rgName=$projectId-RG
 
