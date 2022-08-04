@@ -27,6 +27,46 @@ class GraphHelper
         }
     }
 
+    public static async Task SendReportMailAsync(string subject, string body, string attachmentPath)
+    {
+        _ = _appClient ?? throw new System.NullReferenceException("Graph has not been initialized for app-only auth");
+        _ = _settings ?? throw new System.NullReferenceException("Settings cannot be null");
+
+        IMessageAttachmentsCollectionPage attachments = new MessageAttachmentsCollectionPage()
+        {
+            new FileAttachment
+            {
+                Name = Path.GetFileName(attachmentPath),
+                ContentType = "text/plain",
+                ContentBytes = System.IO.File.ReadAllBytes(attachmentPath)
+            }
+        };
+        var message = new Message
+        {
+            Subject = subject,
+            Body = new ItemBody
+            {
+                Content = body,
+                ContentType = BodyType.Text
+            },
+            ToRecipients = new Recipient[]
+            {
+                new Recipient
+                {
+                    EmailAddress = new EmailAddress
+                    {
+                        Address = _settings.ADUser,
+                    }
+                }
+            },
+            Attachments = attachments
+        };
+        await _appClient.Users[_settings.ADUser]
+            .SendMail(message)
+            .Request()
+            .PostAsync();
+    }
+
     public static async Task SendMailAsync(string recipient, string inetMsgID, string subject, string body)
     {
         _ = _appClient ?? throw new System.NullReferenceException("Graph has not been initialized for app-only auth");
@@ -42,7 +82,7 @@ class GraphHelper
                 ContentType = BodyType.Html
             },
             ToRecipients = new Recipient[]
-            {
+        {
                 new Recipient
                 {
                     EmailAddress = new EmailAddress
@@ -50,7 +90,7 @@ class GraphHelper
                         Address = recipient.Trim(),
                     }
                 }
-            }
+        }
         };
         await _appClient.Users[_settings.ADUser]
             .SendMail(message)
