@@ -17,8 +17,9 @@ pool:
   vmImage: ubuntu-latest
 steps:
 - script: |
-    az config set core.output=none
+    az config set --local core.output=none
     az config get core.output
+    ls
 - task: AzureCLI@2
   inputs:
     azureSubscription: 'AzureServiceConnection'
