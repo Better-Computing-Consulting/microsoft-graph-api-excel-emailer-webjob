@@ -16,7 +16,9 @@ schedules:
 pool:
   vmImage: ubuntu-latest
 steps:
-- script:  az config set core.output=none
+- script: |
+    az config set core.output=none
+    az config get core.output
 - task: AzureCLI@2
   inputs:
     azureSubscription: 'AzureServiceConnection'
