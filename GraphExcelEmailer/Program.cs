@@ -72,6 +72,10 @@ async Task SendManyEmailsAsync()
         LogEntry("Get entries from the NewEmails table.");
         var rowsPage = await GraphHelper.GetTableRowsAsync("NewEmails");
 
+        _ = settings.ADUser ?? throw new System.NullReferenceException("Settings cannot be null");
+        // Get domain of configured AD User for the InternetMessageId
+        string domain = settings.ADUser[settings.ADUser.IndexOf("@")..];
+
         // Reverse the order of the row results, so we can delete from high to low row number.
         // This avoids changing a row numbers at runtime and causing problems on row delete.
         foreach (var row in rowsPage.Reverse())
@@ -84,7 +88,7 @@ async Task SendManyEmailsAsync()
             {
                 // New emails get a custom InternetMessageId. 
                 // This InternetMessageId will be used later to locate the message and reply to it.
-                string msgid = "<" + Guid.NewGuid().ToString() + "@bcc.bz>";
+                string msgid = "<" + Guid.NewGuid().ToString() + domain + ">";
                 double sentdatetime = DateTime.Now.ToOADate();
                 StringBuilder bodytext = new();
                 bodytext.AppendLine("<p>Hello " + name.Trim() + ",<br><br>");
@@ -156,7 +160,7 @@ async Task SendManyReplyEmailsAsync()
                 var message = messagePage.CurrentPage.Single();
                 StringBuilder commenttext = new();
                 commenttext.AppendLine("<p>Hello " + name.Trim() + ",<br><br>");
-                commenttext.AppendLine("I have not hard from you. Are you okay?<br><br>");
+                commenttext.AppendLine("I have not heard from you. Are you okay?<br><br>");
                 commenttext.AppendLine("Graph Tester<br>");
                 commenttext.AppendLine("Intern<br>");
                 commenttext.AppendLine("Better Computing Consulting<br>");
