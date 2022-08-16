@@ -14,8 +14,7 @@ trigger:
      - '**/*.yml'
      - '/*.yml'
      - '/README.md'
-     - '/deployResourcesProject.sh'
-     - '/showDeployment.sh'
+     - '/*.sh'
 
 stages:
 - stage: Build
