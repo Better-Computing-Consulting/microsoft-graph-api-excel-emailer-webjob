@@ -84,8 +84,8 @@ az keyvault network-rule remove --name $keyVaultName --ip-address $localpubip --
 subsId=$(az account show --query id)
 spName=$projectId-sp
 
-echo "Register Azure Service Principal for the pipelines"
-spKey=$(az ad sp create-for-rbac --name $spName --role Contributor --scopes $rgId --only-show-errors --query password)
+echo "Register Azure Service Principal for the pipelines with enough rights to deploy and run the webjob"
+spKey=$(az ad sp create-for-rbac --name $spName --role "Website Contributor" --scopes $rgId --only-show-errors --query password)
 
 spClientId=$(az ad sp list --display-name $spName --query [].appId)
 subsName=$(az account show --query name)
