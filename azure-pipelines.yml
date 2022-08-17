@@ -64,7 +64,10 @@ stages:
         azureSubscription: 'AzureServiceConnection'
         scriptType: 'bash'
         scriptLocation: 'inlineScript'
-        inlineScript: 'az webapp list --resource-group $(ResGrpName) -o table'
+        inlineScript: |
+         'webappname=$(az webapp list --resource-group $(ResGrpName) --query [].name -o tsv)'
+         'while [ -z "$webappname" ]; do sleep 30; !!; done'
+         'echo $webappname'
     - task: AzureRmWebAppDeployment@4
       inputs:
         ConnectionType: 'AzureRM'
