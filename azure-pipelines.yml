@@ -66,7 +66,7 @@ stages:
         scriptLocation: 'inlineScript'
         inlineScript: |
          webappname=$(az webapp list --resource-group $(ResGrpName) --query [].name -o tsv)
-         while [ -z "$webappname" ]; do sleep 30; !!; done
+         while [ -z "$webappname" ]; do sleep 15; webappname=$(az webapp list --resource-group $(ResGrpName) --query [].name -o tsv); done
          echo $webappname
     - task: AzureRmWebAppDeployment@4
       inputs:
