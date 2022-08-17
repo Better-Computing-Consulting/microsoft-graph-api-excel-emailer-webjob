@@ -1,7 +1,7 @@
 #!/bin/bash
 set -ev
 projectId=bccGraphWebjob-$RANDOM
-echo $projectId
+echo $'\e[1;33m'$projectId$'\e[0m'
 location="westus"
 rgName=$projectId-RG
 
@@ -122,16 +122,17 @@ pipelinesRepo=https://github.com/Better-Computing-Consulting/microsoft-graph-api
 pipelineId=$(az pipelines create --name BuildDeployPipeline --project $projectId --repository $pipelinesRepo --branch master \
 	--yml-path azure-pipelines.yml --skip-first-run true --service-connection $gitHubSvcId --only-show-errors --query id)
 
-echo "$devOpsOrgUrl/$projectId/_build?definitionId=$pipelineId"
+echo $'\e[1;33m'$devOpsOrgUrl/$projectId/_build?definitionId=$pipelineId$'\e[0m'
 
 # "Create pipeline WebAppName variable"
 az pipelines variable create --name WebAppName --value $webAppName --project $projectId --pipeline-id $pipelineId --output none
+az pipelines variable create --name ResGrpName --value $rgName --project $projectId --pipeline-id $pipelineId --output none
 
 # "Create CronRun Pipeline"
 pipelineId=$(az pipelines create --name CronRunPipeline --project $projectId --repository $pipelinesRepo --branch master \
         --yml-path cron-pipeline.yml --skip-first-run true --service-connection $gitHubSvcId --only-show-errors --query id)
 
-echo "$devOpsOrgUrl/$projectId/_build?definitionId=$pipelineId"
+echo $'\e[1;33m'$devOpsOrgUrl/$projectId/_build?definitionId=$pipelineId$'\e[0m'
 
 # "Create pipeline WebAppName and ResGrpName variables"
 az pipelines variable create --name WebAppName --value $webAppName --project $projectId --pipeline-id $pipelineId --output none
