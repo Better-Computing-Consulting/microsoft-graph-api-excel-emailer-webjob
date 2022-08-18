@@ -126,7 +126,7 @@ pipelineId=$(az pipelines create --name BuildDeployPipeline --project $projectId
 
 echo $'\e[1;33m'$devOpsOrgUrl/$projectId/_build?definitionId=$pipelineId$'\e[0m'
 
-# "Create pipeline WebAppName variable"
+# "Create pipeline WebAppName and ResGrpName variables"
 az pipelines variable create --name WebAppName --value $webAppName --project $projectId --pipeline-id $pipelineId --output none
 az pipelines variable create --name ResGrpName --value $rgName --project $projectId --pipeline-id $pipelineId --output none
 
