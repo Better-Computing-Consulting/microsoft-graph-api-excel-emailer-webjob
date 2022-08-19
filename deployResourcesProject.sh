@@ -14,7 +14,6 @@ az config set defaults.location=$location defaults.group=$rgName core.output=tsv
 #
 
 rgId=$(az group create --name $rgName --query id)
-
 appSvcName=$projectId-AppSvcFreePlan
 
 # "Deploy WebApp Service Plan"
