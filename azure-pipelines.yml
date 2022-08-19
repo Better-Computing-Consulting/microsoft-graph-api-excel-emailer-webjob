@@ -65,12 +65,11 @@ stages:
         scriptType: 'bash'
         scriptLocation: 'inlineScript'
         inlineScript: |
-         az webapp list --resource-group $(ResGrpName)
          webappname=$(az webapp list --resource-group $(ResGrpName) --query [].name -o tsv)
          while [ -z "$webappname" ]
          do 
            sleep 15
-           echo "Retry webapp..."
+           echo "Retry recently-deployed webapp..."
            webappname=$(az webapp list --resource-group $(ResGrpName) --query [].name -o tsv) 
          done
          echo $webappname
