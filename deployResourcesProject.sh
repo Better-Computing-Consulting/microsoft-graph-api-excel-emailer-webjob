@@ -59,11 +59,16 @@ az ad sp create --id $adAppId --output none
 # "Grant permissions to the AD App"
 az ad app permission grant --id $adAppId --api 00000003-0000-0000-c000-000000000000 --scope Files.Read.All Files.ReadWrite.All Mail.ReadWrite Mail.Send User.Read.All --output none
 
-# "Refresh login token"
-tenantId=$(az login --query [].tenantId)
-
 # "Admin-Consent permissions to the AD App"
-az ad app permission admin-consent --id $adAppId --output none
+set +e
+az ad app permission admin-consent --id $adAppId 2>null
+while [ $? -ne 0 ]
+do
+  sleep 5
+  echo "Retrying admin-consent..."
+  az ad app permission admin-consent --id $adAppId 2>null 
+done
+set -e
 
 localpubip=$(dig +short myip.opendns.com @resolver1.opendns.com)
 
@@ -73,6 +78,8 @@ az keyvault network-rule add --name $keyVaultName --ip-address $localpubip --out
 # "Add AD App ID and Password as secrets to the KeyVault"
 az keyvault secret set --vault-name $keyVaultName --name clientId --value $adAppId --output none
 az keyvault secret set --vault-name $keyVaultName --name clientSecret --value $adAppPw --output none
+
+tenantId=$(az account show --query tenantId)
 
 # "Add Tenant ID as a secret to the KeyVault"
 az keyvault secret set --vault-name $keyVaultName --name tenantId --value $tenantId --output none
@@ -97,6 +104,7 @@ subsName=$(az account show --query name)
 devOpsOrgUrl=https://dev.azure.com/Better-Computing-Consulting
 az devops configure --defaults organization=$devOpsOrgUrl
 
+#az login
 #export AZURE_DEVOPS_EXT_GITHUB_PAT=enter-github-pat-here
 export AZURE_DEVOPS_EXT_AZURE_RM_SERVICE_PRINCIPAL_KEY=$spKey
 
