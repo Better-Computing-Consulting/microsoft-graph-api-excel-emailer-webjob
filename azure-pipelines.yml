@@ -59,15 +59,15 @@ stages:
         buildType: 'current'
         downloadType: 'specific'
         downloadPath: '$(System.ArtifactsDirectory)'
-    - task: AzureCLI@2
-      inputs:
-        azureSubscription: 'AzureServiceConnection'
-        scriptType: 'bash'
-        scriptLocation: 'inlineScript'
-        inlineScript: |
-         webappname=$(az webapp list --resource-group $(ResGrpName) --query [].name -o tsv)
-         while [ -z "$webappname" ]; echo "Retrying recently-deployed webapp..."; do sleep 15; webappname=$(az webapp list --resource-group $(ResGrpName) --query [].name -o tsv); done
-         echo $webappname
+#    - task: AzureCLI@2
+#      inputs:
+#        azureSubscription: 'AzureServiceConnection'
+#        scriptType: 'bash'
+#        scriptLocation: 'inlineScript'
+#        inlineScript: |
+#         webappname=$(az webapp list --resource-group $(ResGrpName) --query [].name -o tsv)
+#         while [ -z "$webappname" ]; echo "Retrying recently-deployed webapp..."; do sleep 15; webappname=$(az webapp list --resource-group $(ResGrpName) --query [].name -o tsv); done
+#         echo $webappname
     - task: AzureRmWebAppDeployment@4
       inputs:
         ConnectionType: 'AzureRM'
