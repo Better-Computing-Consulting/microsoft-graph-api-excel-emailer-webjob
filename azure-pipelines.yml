@@ -14,7 +14,7 @@ trigger:
      - '**/*.yml'
      - '/*.yml'
      - '/README.md'
-     - '/*.sh'
+     - '**/*.sh'
 
 stages:
 - stage: Build
