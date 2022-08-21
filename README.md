@@ -10,6 +10,8 @@ The project also includes a deployResourcesProject.sh shell script that deploys 
 
 To try this project first run the deployResourcesProject.sh on shell prompt with the AZ CLI installed with an account with enough rights to create AD accounts and deploy resources.
 
+At a minimum, you should update the value **aduser** in **appsettings.json** and **devOpsOrgUrl** in **deployResourcesProject.sh.**
+
 The deployResourcesProject.sh will:
 
 1)	Setup a project name variable based on root project id plus a random number.  The names of all other resources will be based on this project id.
