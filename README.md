@@ -40,7 +40,7 @@ Once the resources are deployed we are ready to build and deploy the console app
 
 I also posted a video demonstrating the execution of the project. The video shows how the Azure resources and DevOps pipelines are deployed by deployResourcesProject.sh, then goes on to deploy the Graph application by running a pipeline, and finally the video shows testing the application by manually running the cron pipeline before and after editing the contents of the OneDrive spreadsheet and seeing the resulting emails.
 
-https://youtu.be/XKtAgnDk1VA
+https://youtu.be/xf9AtwYZqT4
 
 
 Enjoy 
