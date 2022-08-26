@@ -36,7 +36,13 @@ The deployResourcesProject.sh will:
 20)	Create a pipeline for running the WebApp based on a corn schedule. (The Free SKU of the App Service Plain does not allow for WebJobs to be triggered by a cron schedule, so we are using a cron job in an Azure DevOps pipeline to run the WebJob instead.
 21)	Add two variables to the cron pipeline: the name of the WebApp and its resource group, both of which are required by the run webjob command.
 
+Once the resources are deployed we are ready to build and deploy the console app either by committing a change to the GitHub repository or by clicking Run on the pipeline.
 
-One the resources are deployed we are ready to build and deploy the console app either by committing a change to the GitHub repository or by clicking Run on the pipeline.
+I also posted a video demonstrating the execution of the project. The video shows how the Azure resources and DevOps pipelines are deployed by deployResourcesProject.sh, then goes on to deploy the Graph application by running a pipeline, and finally the video shows testing the application by manually running the cron pipeline before and after editing the contents of the OneDrive spreadsheet and seeing the resulting emails.
+
+https://youtu.be/XKtAgnDk1VA
+
 
 Enjoy 
+
+:smiley:
