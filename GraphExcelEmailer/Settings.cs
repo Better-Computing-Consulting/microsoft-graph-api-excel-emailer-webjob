@@ -1,6 +1,5 @@
 ﻿using Microsoft.Extensions.Configuration;
 using Azure.Identity;
-using Azure.Security.KeyVault.Secrets;
 
 public class Settings
 {
