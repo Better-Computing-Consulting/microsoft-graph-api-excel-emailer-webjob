@@ -38,6 +38,10 @@ The deployResourcesProject.sh will:
 
 Once the resources are deployed we are ready to build and deploy the console app either by committing a change to the GitHub repository or by clicking Run on the pipeline.
 
+This article describes the security aspects of the system: The use of Azure KeyVault to store app secrets, use Managed Identity and IP rules to limit access to KeyVault, and use of Principle of Least Privilege for service accounts.
+
+https://bcc.bz/post/graph-api-app-webjob-azure-devops-ci-deployment-security
+
 I also posted a video demonstrating the execution of the project. The video shows how the Azure resources and DevOps pipelines are deployed by deployResourcesProject.sh, then goes on to deploy the Graph application by running a pipeline, and finally the video shows testing the application by manually running the cron pipeline before and after editing the contents of the OneDrive spreadsheet and seeing the resulting emails.
 
 https://youtu.be/xf9AtwYZqT4
